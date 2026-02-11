@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+.venv/
+venv/
+*.log
+
+# Docker volumes
+postgres_data/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
