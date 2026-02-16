@@ -36,6 +36,25 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  
+  spark:
+    image: apache/spark:3.5.1
+    container_name: ecommerce_spark
+    environment:
+      - PATH=/opt/spark/bin:$PATH
+    depends_on:
+      - kafka
+    volumes:
+      - ../services/spark:/app
+    working_dir: /app
+    ports:
+      - "4040:4040"
+    command: >
+      /opt/spark/bin/spark-submit
+      --conf spark.jars.ivy=/tmp/.ivy2
+      --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1
+      streaming_job.py
+
 
   # elasticsearch:
   #   image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
